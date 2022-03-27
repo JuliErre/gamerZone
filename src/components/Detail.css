@@ -1,0 +1,21 @@
+.carousel{
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow-x:scroll;
+    overflow-y:hidden;
+    width: 800px;
+  
+  
+  
+}
+
+.carousel::-webkit-scrollbar{
+    display: none;
+}
+
+img{
+    width: 100%;
+    height: auto;
+}
+
