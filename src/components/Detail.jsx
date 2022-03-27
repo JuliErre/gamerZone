@@ -1,4 +1,16 @@
-import { Box, Image, Stack, Text, VStack, Heading, HStack } from "@chakra-ui/react";
+import {
+    Box,
+    Image,
+    Stack,
+    Text,
+    VStack,
+    Heading,
+    HStack,
+    Icon,
+    LinkBox,
+    Link,
+    LinkOverlay,
+} from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
@@ -6,18 +18,32 @@ import { useParams } from "react-router-dom";
 import Apiurls from "../Apiurls";
 import "./Detail.css";
 import GameImages from "./GameImages";
+import { FaStar, FaReddit } from "react-icons/fa";
+import { BiWorld } from "react-icons/bi";
 
 function Detail() {
     let { id } = useParams();
     const [game, setGame] = useState({});
+    const [platforms, setPlatforms] = useState([]);
+    const [requeriments, setRequeriments] = useState({});
+    const [publishers, setPublishers] = useState([]);
 
     useEffect(() => {
         let isUnmounted = false;
         if (!isUnmounted) {
             axios
                 .get(`${Apiurls.baseUrl}games/${id}?${Apiurls.key}`)
-                .then((res) => setGame(res.data))
-                .then(() => console.log(game))
+                .then((res) => {
+                    setGame(res.data);
+                    setPlatforms(res.data.platforms);
+                    setRequeriments(
+                        res.data.platforms.find(
+                            (platform) => platform.platform.name.toLowerCase() === "pc"
+                        )
+                    );
+                    setPublishers(res.data.publishers);
+                })
+                .then(() => setRequeriments((r) => r.requirements))
                 .catch((err) => console.log(err));
         }
 
@@ -25,6 +51,7 @@ function Detail() {
             isUnmounted = true;
         };
     }, []);
+
 
     return (
         <VStack spacing="0px" width="99vw">
@@ -80,8 +107,110 @@ function Detail() {
                 </Stack>
             </Stack>
             <GameImages game={game.slug} />
-            <HStack>
-                
+            <HStack bgColor="black" justify="center" alignItems='flex-start' py='50px' minWidth='99vw' minHeight='65vh' >
+                    
+                <HStack
+                    
+                    width="80%"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    padding="50px"
+                    wrap="wrap"
+                    spacing="0px"
+                    gap="20px"
+                >
+                    <Box display="flex" flexDirection="column" gap="3px">
+                        <Heading fontSize="3xl" fontWeight="bold" color="white">
+                            {" "}
+                            Plataforms Available{" "}
+                        </Heading>
+                        {platforms.map((platform) => (
+                            <Text fontSize="lg"> {platform.platform.name}</Text>
+                        ))}
+                    </Box>
+                    <Box
+                        display="flex"
+                        flexDirection="column"
+                        justifyContent="center"
+                        alignItems="flex-Start"
+                    >
+                        <LinkBox
+                            maxW="sm"
+                            p=""
+                            rounded="md"
+                            justifyContent="flex-start"
+                            alignItems="flex-center"
+                            display="flex"
+                            gap="5px"
+                        >
+                            <Icon as={BiWorld} width="50" fontSize="4xl" color="blue.600" />
+                            <LinkOverlay
+                                color="White"
+                                fontSize="2xl"
+                                fontWeight="bold"
+                                href={game.website}
+                                isExternal
+                            >
+                                {" "}
+                                Official Website
+                            </LinkOverlay>
+                        </LinkBox>
+
+                        <Text fontSize="lg">
+                            {" "}
+                            {publishers.map((p) => (
+                                <span> @{p.name} </span>
+                            ))}{" "}
+                        </Text>
+                        <Text fontSize="lg"> Released: {game.released} </Text>
+                    </Box>
+                    <Box>
+                        <LinkBox
+                            maxW="sm"
+                            p=""
+                            rounded="md"
+                            justifyContent="flex-start"
+                            alignItems="flex-center"
+                            display="flex"
+                            gap="5px"
+                        >
+                            <Icon as={FaReddit} width="50" fontSize="4xl" color="red.500" />
+                            <LinkOverlay
+                                color="White"
+                                fontSize="2xl"
+                                fontWeight="bold"
+                                href={game.reddit_url}
+                                isExternal
+                            >
+                                {" "}
+                                {game.name}{" "}
+                            </LinkOverlay>
+                        </LinkBox>
+                    </Box>
+                    <Box>
+                        <Heading fontSize="3xl" fontWeight="bold" color="white">
+                            {" "}
+                            Score{" "}
+                        </Heading>
+                        <Text fontSize="2xl" color="yellow.300">
+                            {" "}
+                            <Icon as={FaStar} /> Metacritic: {game.metacritic}{" "}
+                        </Text>
+                        <Text fontSize="2xl" color="yellow.400">
+                            {" "}
+                            <Icon as={FaStar} /> Rating: {game.rating}/5{" "}
+                        </Text>
+                    </Box>
+
+                    <Box gap="10px" display="flex" flexDirection="column" margin="10px">
+                        <Heading fontSize="3xl" fontWeight="bold" color="white">
+                            {" "}
+                            Requirements{" "}
+                        </Heading>
+                        <Text> {requeriments.minimum} </Text>
+                        <Text> {requeriments.recommended} </Text>
+                    </Box>
+                </HStack>
             </HStack>
         </VStack>
     );

@@ -15,10 +15,6 @@ function Api() {
 
     },[])
 
-    
-
-    console.log(games)
-
   return (
         <HStack wrap='wrap' justify='center' align='center' spacing='0px' gap='50px' marginTop='30px'>
          {games.map(game => <GameCard game={game} key={game.id}/>)}
