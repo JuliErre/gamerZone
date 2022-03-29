@@ -20,6 +20,7 @@ import "./Detail.css";
 import GameImages from "./GameImages";
 import { FaStar, FaReddit } from "react-icons/fa";
 import { BiWorld } from "react-icons/bi";
+import Loading from "../Loading.svg"
 
 function Detail() {
     let { id } = useParams();
@@ -27,6 +28,7 @@ function Detail() {
     const [platforms, setPlatforms] = useState([]);
     const [requirements, setRequirements] = useState({});
     const [publishers, setPublishers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         let isUnmounted = false;
@@ -51,6 +53,9 @@ function Detail() {
                         }
                     });
                 })
+                .finally(() => {
+                    setLoading(false);
+                })
 
                 .catch((err) => console.log(err));
         
@@ -61,6 +66,7 @@ function Detail() {
     }, []);
 
     return (
+        
         <VStack spacing="0px" width="99vw">
             <Stack
                 bgImage={`url(${game.background_image})`}
