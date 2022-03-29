@@ -7,12 +7,20 @@ import GameCard from './GameCard'
 function Api() {
 
     const[games, setGames] = useState([])
+  
 
     useEffect(()=>  {
+        let isUnmounted = false;
+        
         axios.get(`${Apiurls.baseUrl}${Apiurls.games}`)
-        .then(res => setGames(res.data.results) )
+        .then(res => {
+          if (!isUnmounted){
+            setGames(res.data.results) 
+        }})
         .catch(err => console.log(err))
-
+        return () => {
+            isUnmounted = true;
+        }
     },[])
 
   return (

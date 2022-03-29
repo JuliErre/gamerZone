@@ -30,10 +30,11 @@ function Detail() {
 
     useEffect(() => {
         let isUnmounted = false;
-        if (!isUnmounted) {
-            axios
-                .get(`${Apiurls.baseUrl}games/${id}?${Apiurls.key}`)
+        
+            
+            axios.get(`${Apiurls.baseUrl}games/${id}?${Apiurls.key}`)
                 .then((res) => {
+                    if (!isUnmounted) {
                     setGame(res.data);
                     setPlatforms(res.data.platforms);
                     setRequirements(
@@ -42,16 +43,22 @@ function Detail() {
                         )
                     );
                     setPublishers(res.data.publishers);
+                }})
+                .then(() => {
+                    setRequirements((r) => {
+                        if (r) {
+                            return r.requirements;
+                        }
+                    });
                 })
-                .then(() => setRequirements((r) => r.requirements))
+
                 .catch((err) => console.log(err));
-        }
+        
 
         return () => {
             isUnmounted = true;
         };
     }, []);
-
 
     return (
         <VStack spacing="0px" width="99vw">
@@ -84,7 +91,7 @@ function Detail() {
                         boxShadow="1px 1px 40px black"
                     >
                         <Image
-                            src={game.background_image_additional}
+                            src={game.background_image_additional ? game.background_image_additional : game.background_image}
                             alt=""
                             maxWidth="100vw"
                             loading="lazy"
@@ -107,10 +114,15 @@ function Detail() {
                 </Stack>
             </Stack>
             <GameImages game={game.slug} />
-            <HStack bgColor="black" justify="center" alignItems='flex-start' py='50px' minWidth='99vw' minHeight='65vh' >
-                    
+            <HStack
+                bgColor="black"
+                justify="center"
+                alignItems="flex-start"
+                py="50px"
+                minWidth="99vw"
+                minHeight="65vh"
+            >
                 <HStack
-                    
                     width="80%"
                     alignItems="flex-start"
                     justifyContent="space-between"
@@ -125,7 +137,10 @@ function Detail() {
                             Available Platforms{" "}
                         </Heading>
                         {platforms.map((platform) => (
-                            <Text fontSize="lg"> {platform.platform.name}</Text>
+                            <Text fontSize="lg" key={Math.random()}>
+                                {" "}
+                                {platform.platform.name}
+                            </Text>
                         ))}
                     </Box>
                     <Box
@@ -159,7 +174,7 @@ function Detail() {
                         <Text fontSize="lg">
                             {" "}
                             {publishers.map((p) => (
-                                <span> @{p.name} </span>
+                                <span key={Math.random()}> @{p.name} </span>
                             ))}{" "}
                         </Text>
                         <Text fontSize="lg"> Released: {game.released} </Text>
@@ -207,8 +222,13 @@ function Detail() {
                             {" "}
                             Requirements{" "}
                         </Heading>
-                        <Text> {requirements.minimum} </Text>
-                        <Text> {requirements.recommended} </Text>
+
+                        {requirements && (
+                            <>
+                                <Text> {requirements.minimum} </Text>
+                                <Text> {requirements.recommended} </Text>
+                            </>
+                        )}
                     </Box>
                 </HStack>
             </HStack>

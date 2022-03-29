@@ -9,11 +9,12 @@ import { Stack, Input,   Menu,
 Button} from '@chakra-ui/react'
 import React from 'react'
 import { FaChevronDown } from "react-icons/fa";
+import Search from './Search';
 
 function Navbar() {
     return (
         <Stack alignItems='center' justifyContent='start' margin='20px' flexDirection='row' gap='10px' spacing='0' maxWidth='container.xl'>
-            <Input placeholder='Search a videogame' bg='white' width='600px' />
+          <Search/>
 
             <Menu spacing='0px' margin='0px' >
                 {({ isOpen }) => (

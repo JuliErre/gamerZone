@@ -6,6 +6,7 @@ import HomeScreen from "./components/HomeScreen";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Detail from "./components/Detail";
+import SearchPage from "./components/SearchPage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -25,6 +26,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomeScreen />} />
           <Route exact path ="/detail/:id"  element={<Detail/>}/>
+          <Route exact path ="/search"  element={<SearchPage/>}/>
+          
         </Routes>
       </Container>
     </BrowserRouter>

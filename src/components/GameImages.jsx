@@ -10,12 +10,13 @@ function GameImages({game}) {
     useEffect(() => {
         
         let isUnmounted = false;
-        if (!isUnmounted){
-            if(game != undefined){
-            axios.get(`${Apiurls.baseUrl}games/${game}/screenshots?${Apiurls.key}`)
-            .then(res => setImages(res.data.results))
-            .catch(err => console.log(err))
-            }
+        if(game != undefined){
+        axios.get(`${Apiurls.baseUrl}games/${game}/screenshots?${Apiurls.key}`)
+          .then(res =>{
+            if (!isUnmounted){
+              setImages(res.data.results)
+            }})
+          .catch(err => console.log(err))
         }
         return () => {
             isUnmounted = true;
