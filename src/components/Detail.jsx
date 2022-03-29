@@ -25,7 +25,7 @@ function Detail() {
     let { id } = useParams();
     const [game, setGame] = useState({});
     const [platforms, setPlatforms] = useState([]);
-    const [requeriments, setRequeriments] = useState({});
+    const [requirements, setRequirements] = useState({});
     const [publishers, setPublishers] = useState([]);
 
     useEffect(() => {
@@ -36,14 +36,14 @@ function Detail() {
                 .then((res) => {
                     setGame(res.data);
                     setPlatforms(res.data.platforms);
-                    setRequeriments(
+                    setRequirements(
                         res.data.platforms.find(
                             (platform) => platform.platform.name.toLowerCase() === "pc"
                         )
                     );
                     setPublishers(res.data.publishers);
                 })
-                .then(() => setRequeriments((r) => r.requirements))
+                .then(() => setRequirements((r) => r.requirements))
                 .catch((err) => console.log(err));
         }
 
@@ -122,7 +122,7 @@ function Detail() {
                     <Box display="flex" flexDirection="column" gap="3px">
                         <Heading fontSize="3xl" fontWeight="bold" color="white">
                             {" "}
-                            Plataforms Available{" "}
+                            Available Platforms{" "}
                         </Heading>
                         {platforms.map((platform) => (
                             <Text fontSize="lg"> {platform.platform.name}</Text>
@@ -207,8 +207,8 @@ function Detail() {
                             {" "}
                             Requirements{" "}
                         </Heading>
-                        <Text> {requeriments.minimum} </Text>
-                        <Text> {requeriments.recommended} </Text>
+                        <Text> {requirements.minimum} </Text>
+                        <Text> {requirements.recommended} </Text>
                     </Box>
                 </HStack>
             </HStack>

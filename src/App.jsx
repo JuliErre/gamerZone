@@ -19,6 +19,7 @@ function App() {
         alignItems="center"
         justifyContent="center"
         flexDirection="column"
+        height='100%'
       >
         <Navbar />
         <Routes>
