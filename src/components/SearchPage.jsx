@@ -42,6 +42,7 @@ function SearchPage() {
                     spacing="0px"
                     gap="50px"
                     marginTop="30px"
+                    backgroundColor='rgba(0, 0, 0,0.3)' padding='50px' borderRadius='30px' minHeight='100vh' minWidth='80vw'
                 >
                     {games.map((game) => {
                         if (game.background_image) {

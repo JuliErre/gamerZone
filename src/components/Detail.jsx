@@ -16,7 +16,6 @@ import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { useParams } from "react-router-dom";
 import Apiurls from "../Apiurls";
-import "./Detail.css";
 import GameImages from "./GameImages";
 import { FaStar, FaReddit } from "react-icons/fa";
 import { BiWorld } from "react-icons/bi";
@@ -87,7 +86,7 @@ function Detail() {
                 >
                     <VStack
                         bg="rgba(0,0,0,0.8)"
-                        maxWidth="100vw"
+                        maxWidth="99vw"
                         width="5xl"
                         borderRadius="20px"
                         overflow="hidden"
@@ -99,7 +98,7 @@ function Detail() {
                         <Image
                             src={game.background_image_additional ? game.background_image_additional : game.background_image}
                             alt=""
-                            maxWidth="100vw"
+                            maxWidth="99vw"
                             loading="lazy"
                         />
                         <Box

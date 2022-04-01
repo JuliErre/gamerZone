@@ -1,28 +1,52 @@
-import { Input } from '@chakra-ui/react'
-import React from 'react'
+
+import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Button,
+  Input,
+  Flex,
+  Icon
+
+} from '@chakra-ui/react'
+
+import { FaSearch } from 'react-icons/fa';
+
+
 
 function Search() {
-    const [searchParams,setSearchParams] = useSearchParams();
-    let navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [text, setText] = useState('');
+  let navigate = useNavigate();
 
-    const handleChange = (e) => {
-        if (e.target.value) {
-            navigate(`/search?q=${e.target.value}`)
-           
-        }
-        
-        if(e.target.value === ''){
-            searchParams.delete('q')
-            setSearchParams(searchParams)
-            navigate('/')
-            }
-        } 
-        
-        console.log(searchParams.get('q'))
+  const handleChange = () => {
+    if (text) {
+      navigate(`/search?q=${text}`)
+
+    }
+
+    if (text === '') {
+      searchParams.delete('q')
+      setSearchParams(searchParams)
+      navigate('/')
+    }
+  }
+
+ 
   return (
-    <Input placeholder='Search a videogame' bg='white' width='600px' onChange={handleChange} />
-    
+
+    <Flex direction="row" gap='10px'  >
+      
+      <Input  autoFocus outline='0px' placeholder='Search a videogame'  color='white' bg='gray.900' width={{ base: '300px' , md:'400px'   }}  onChange={e => setText(e.target.value)} required />
+      <Button  variant='outline' colorScheme='gray' leftIcon={<Icon as={FaSearch} />} onClick={handleChange}>
+        Search
+      </Button>
+    </Flex>
+
+
   )
 
 }

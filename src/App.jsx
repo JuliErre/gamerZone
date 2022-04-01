@@ -9,19 +9,21 @@ import Detail from "./components/Detail";
 import SearchPage from "./components/SearchPage";
 import GenrePage from "./components/GenrePage";
 
+
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <BrowserRouter>
       <Container
-        maxW="container.xl"
+        maxW="80vw"
         bg=""
         display="flex"
         alignItems="center"
         justifyContent="center"
         flexDirection="column"
         height='100%'
+        
       >
         <Navbar />
         <Routes>
