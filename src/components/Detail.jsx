@@ -94,11 +94,14 @@ function Detail() {
                         pb="20px"
                         margin="20px"
                         boxShadow="1px 1px 40px black"
+                        maxWidth="90vw"
                     >
                         <Image
                             src={game.background_image_additional ? game.background_image_additional : game.background_image}
                             alt=""
                             maxWidth="99vw"
+                            maxHeight="60vh"
+                            minWidth="60vw"
                             loading="lazy"
                         />
                         <Box
@@ -113,7 +116,7 @@ function Detail() {
                                 {" "}
                                 {game.name}{" "}
                             </Heading>
-                            <Text fontSize="lg">{game.description_raw}</Text>
+                            <Text fontSize={{ base: 'md', md: 'lg' }}>{game.description_raw}</Text>
                         </Box>
                     </VStack>
                 </Stack>

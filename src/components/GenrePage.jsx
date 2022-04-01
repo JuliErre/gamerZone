@@ -29,8 +29,10 @@ function GenrePage() {
             isUnmounted = true;
         }
     },[genreId])
+
+    console.log(`${ApiUrls.baseUrl}${ApiUrls.games}&genres=${genreId}&page_size=10`)
   return (
-    <HStack wrap='wrap' justify='center' align='center' spacing='0px' gap='50px' marginTop='30px' backgroundColor='rgba(0, 0, 0,0.3)' padding='50px' borderRadius='30px' minHeight='100vh' minWidth='80vw'>
+    <HStack wrap='wrap' justify='center' align='center' spacing='0px' gap='50px' marginTop='30px' backgroundColor='rgba(0, 0, 0,0.3)' padding='20px' borderRadius='30px' minHeight='100vh' minWidth='80vw' maxWidth='95vw'>
         {games.map(game => <GameCard game={game} key={game.id}/>)}
     </HStack>
   )

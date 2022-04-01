@@ -26,8 +26,8 @@ function GameImages({game}) {
 
 
   return (
-    <VStack bg='black' wrap='wrap' flexDirection='row' gap='5px' spacing='0px' justifyContent='center' alignItems='center'>
-       {images.map(image => <Image src={image.image}  key={image.id} width='32%' />)}
+    <VStack bg='black' wrap='wrap' flexDirection='row' gap='5px' spacing='0px' justifyContent='center'  alignItems='center'>
+       {images.map(image => <Image src={image.image}  key={image.id} width='32%' minWidth='390px' maxWidth='100%' />)}
 
     </VStack>
   )

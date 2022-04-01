@@ -36,7 +36,7 @@ function Navbar() {
                 <Icon as={BiMenu} color='white' cursor='pointer' fontSize='50px' onClick={() => setIsOpen(!isOpen)} />
             </Box>
         
-            <Flex gap='50px' display={{ base: isOpen  ? 'flex' : 'none' , md:'flex'   }} flexDirection={{base: 'column-reverse' , md:'row'   }} alignSelf ='center' justifyContent='center' alignItems='center' >
+            <Flex gap={{ base:  '15px' , md:'50px'   }} display={{ base: isOpen  ? 'flex' : 'none' , md:'flex'   }} flexDirection={{base: 'column-reverse' , md:'row'   }} alignSelf ='center' justifyContent='center' alignItems='center' >
              
 
                 <Link as={ReachLink} to='/' fontSize='20' color='white' fontWeight='bold'> Home </Link>
