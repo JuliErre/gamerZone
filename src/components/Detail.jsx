@@ -70,7 +70,6 @@ function Detail() {
             <Stack
                 bgImage={`url(${game.background_image})`}
                 bgColor="black"
-                position="relative"
                 width="99vw"
                 minHeight="100vh"
                 backgroundSize="cover"
@@ -93,15 +92,11 @@ function Detail() {
                         spacing="40px"
                         pb="20px"
                         margin="20px"
-                        boxShadow="1px 1px 40px black"
-                        maxWidth="90vw"
+                        boxShadow="1px 1px 40px black"                     
                     >
                         <Image
                             src={game.background_image_additional ? game.background_image_additional : game.background_image}
                             alt=""
-                            maxWidth="99vw"
-                            maxHeight="60vh"
-                            minWidth="60vw"
                             loading="lazy"
                         />
                         <Box
